@@ -1,0 +1,49 @@
+#include <iostream> 
+#include <vector> 
+#include <algorithm> 
+
+using namespace std; 
+
+class Operator { 
+public:
+    string brand; 
+    int subscribersInRussia; 
+    Operator(string _brand, int _subscribersInRussia) : brand(_brand), subscribersInRussia(_subscribersInRussia) {}
+};
+
+int main() {
+   
+    vector<Operator> originalVector = {
+        Operator("Beeline", 1500000),
+        Operator("MTC", 800000),
+        Operator("Megafon", 2000000),
+        Operator("Tele2", 500000)
+    };
+
+    
+    vector<Operator> newVector;
+
+    
+    for (const auto& op : originalVector) {
+        if (op.subscribersInRussia > 1000000) {
+            newVector.push_back(op); 
+        }
+    }
+
+    
+    if (!newVector.empty()) {
+        sort(newVector.begin(), newVector.end(), [](const Operator& a, const Operator& b) {
+            return a.brand < b.brand;
+        });
+
+        
+        cout << "Отсортированный новый вектор:\n";
+        for (const auto& op : newVector) {
+            cout << "Торговая марка: " << op.brand << ", Количество абонентов в России: " << op.subscribersInRussia << endl;
+        }
+    } else {
+        cout << "Новый вектор пустой." << endl; 
+    }
+
+    return 0; 
+}
